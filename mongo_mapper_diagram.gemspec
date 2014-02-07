@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Dai Akatsuka"]
   spec.email         = ["d.akatsuka@gmail.com"]
   spec.summary       = %q{Diagram generator for MongoMapper}
-  spec.description   = %q{DIagram generator for MongoMapper}
+  spec.description   = %q{Diagram generator for MongoMapper}
   spec.homepage      = ""
   spec.license       = "MIT"
 
