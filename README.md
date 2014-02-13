@@ -1,4 +1,4 @@
-# MongoMapperDiagram
+# MongoMapperDiagram [![Build Status](https://travis-ci.org/dakatsuka/mongo_mapper_diagram.png?branch=master)](https://travis-ci.org/dakatsuka/mongo_mapper_diagram)
 
 Diagram generator for MongoMapper
 
