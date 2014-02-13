@@ -1,27 +1,30 @@
+require "mongo_mapper"
 require "gviz"
 
 module MongoMapperDiagram
   class Generator
-    def initialize(documents = MongoMapperDiagram::Document.all)
+    def initialize(documents = nil, gviz = nil)
       @documents = documents
+      @gviz = gviz
     end
 
     def generate(filename, extension = :png)
-      gviz = Gviz.new(:G, :digraph)
+      @documents ||= MongoMapperDiagram::Document.all
+      @gviz ||= Gviz.new(:G, :digraph)
 
       @documents.each do |doc|
-        gviz.node symbolize(doc), label: make_label(doc), shape: 'Mrecord'
+        @gviz.node symbolize(doc), label: make_label(doc), shape: 'Mrecord'
       end
 
       @documents.each do |doc|
         doc.associations.each do |k, association|
           if association.instance_of? MongoMapper::Plugins::Associations::BelongsToAssociation
-            gviz.route symbolize(doc) => symbolize(association.class_name)
+            @gviz.route symbolize(doc) => symbolize(association.class_name)
           end
         end
       end
 
-      gviz.save(filename, extension)
+      @gviz.save(filename, extension)
     end
 
     private
@@ -35,7 +38,7 @@ module MongoMapperDiagram
 
     def make_label(document)
       label =  "{#{humanize(document)}| "
-      label += document.defined_keys.map {|name, key|
+      label += document.keys.map {|name, key|
         name + " : " + key.type.to_s
       }.join('\l')
       label += "\\l}"
