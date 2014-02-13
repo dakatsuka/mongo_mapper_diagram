@@ -1,6 +1,8 @@
 namespace :mongo_mapper do
   desc "Generate Diagram from MongoMapper Document"
   task :diagram => :environment do
+    Rails.application.eager_load!
+
     filename = ENV['filename']
     filename ||= './diagram'
 

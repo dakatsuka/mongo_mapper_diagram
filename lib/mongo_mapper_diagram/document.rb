@@ -1,8 +1,9 @@
 module MongoMapperDiagram
   class Document
     class << self
+      @@documents = []
+
       def <<(document)
-        @@documents ||= []
         @@documents << document
       end
 
